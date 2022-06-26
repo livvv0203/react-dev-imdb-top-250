@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Movie from "./Movie";
 import Profile from "./Profile";
 import Theater from "./Theater";
+import TabBar from "./TabBar";
+import NavBar from "./NavBar";
 import "../css/tab-bar.css";
 
 class TabCard extends Component {
@@ -18,7 +20,7 @@ class TabCard extends Component {
       {
         id: 3,
         text: "Profile",
-      },
+      }
     ],
     currentTab: 0,
   };
@@ -42,47 +44,29 @@ class TabCard extends Component {
   render() {
     return (
       <div>
+        {/* Rendering Nav Bar */}
+        <NavBar
+          eventTab={() => {
+            this.setState({
+              currentTab: 2,
+            });
+          }}
+        />
         {/* Switching options on Tabs */}
         {this.tabSelector()}
-        {/* Rendering Tabs to bottom of the main page */}
-        <ul>
-          {this.state.list.map((item, index) => (
-            <li
-              className={this.state.currentTab === index ? "active" : ""}
-              onClick={() => {
-                this.handleClick(index);
-              }}
-              key={item.id}
-            >
-              {item.text}
-            </li>
-          ))}
-        </ul>
+        {/* Rendering Tab Bar */}
+        <TabBar
+          eventTab={(index) => {
+            this.setState({
+              currentTab: index,
+            });
+          }}
+          currentTab={this.state.currentTab}
+          list={this.state.list}
+        />
       </div>
     );
   }
-  // Control tab to switch page options 
-  handleClick = (index) => {
-    console.log(index);
-
-    this.setState({ currentTab: index });
-  };
 }
 
 export default TabCard;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
